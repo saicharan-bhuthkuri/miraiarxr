@@ -4,7 +4,7 @@
 MIRAI ARXR is a web-based presentation platform for cutting-edge AR smart glasses developed to transform heritage tourism in India. The glasses provide immersive historical and cultural experiences by overlaying 3D augmented reality reconstructions on heritage sites, supported by multilingual AI storytelling. Their offline-first architecture and affordable hardware design aim to break barriers of cost, language, and connectivity traditionally limiting tourism accessibility.
 
 ## Website URL
-Live demo URL: [MIRAI ARXR](http://MIRAI-ARXR.vercal.app).vercal.app
+Live demo URL: [MIRAI ARXR](https://miraiarxr.vercel.app/)
 
 ## Features & Benefits
 
@@ -38,10 +38,11 @@ Live demo URL: [MIRAI ARXR](http://MIRAI-ARXR.vercal.app).vercal.app
 
 ### Running Locally
 1. Clone or download the repository:
-`https://github.com/saicharan-bhuthkuri/MIRAI-ARXR---AR-Smart-Glasses-for-Heritage-Tourism.git`
-
-2. Open the `index.html` file directly in a web browser or serve with a simple HTTP server:
-3. Navigate to `http://localhost:8000` to view the website.
+```bash
+https://github.com/saicharan-bhuthkuri/miraiarxr.git
+```
+3. Open the `index.html` file directly in a web browser or serve with a simple HTTP server:
+4. Navigate to `http://localhost:8000` to view the website.
 
 ### Deployment
 The website can be deployed on any static hosting provider such as GitHub Pages, Vercel, or Netlify.
