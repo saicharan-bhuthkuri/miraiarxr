@@ -644,6 +644,22 @@
             opacity: 0.7;
         }
 
+        .footer-bottom .footer-heart {
+        display: inline-block;
+        transition: transform 0.22s cubic-bezier(.68,-0.55,.27,1.55);
+        margin-right: 4px;
+        }
+
+        .footer-bottom .footer-heart:hover {
+        transform: scale(1.2) rotate(-12deg);
+        }
+
+        .footer-bottom a:hover {
+        color: #00996d;
+        text-decoration: underline;
+        transition: color 0.2s;
+        }
+
         .hidden {
             display: none;
         }
@@ -726,6 +742,85 @@
             box-shadow: 0 6px 20px rgba(0,0,0,0.1);
             display: block; /* eliminates inline spacing */
         }
+
+        /* success card */
+            .modal-overlay {
+            position: fixed;
+            z-index: 9999;
+            inset: 0;
+            background: rgba(34,46,61,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.32s;
+            }
+
+            @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+            }
+
+            .modal-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.18);
+            padding: 36px 30px 25px 30px;
+            text-align: center;
+            min-width: 320px;
+            max-width: 90vw;
+            position: relative;
+            animation: popIn 0.38s cubic-bezier(.68,-0.55,.27,1.55);
+            }
+
+            @keyframes popIn {
+            0% { transform: scale(0.85); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+            }
+
+            .modal-title {
+            font-size: 1.38em;
+            font-weight: 700;
+            margin-bottom: 7px;
+            color: #00b894;
+            }
+
+            .modal-message {
+            font-size: 1.05em;
+            color: #222;
+            margin-bottom: 18px;
+            }
+
+            .modal-btn {
+            padding: 10px 26px;
+            font-size: 1.06em;
+            border-radius: 7px;
+            border: none;
+            background: linear-gradient(90deg,#24e9a5 0%,#17bebe 100%);
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.18s;
+            }
+            .modal-btn:hover {
+            background: linear-gradient(90deg,#17bebe 0%, #24e9a5 100%);
+            }
+
+            .modal-icon {
+            font-size: 2.2em;
+            margin-bottom: 12px;
+            display: block;
+            }
+
+            .modal-close {
+            position: absolute;
+            top: 13px;
+            right: 18px;
+            font-size: 1.3em;
+            color: #bbb;
+            cursor: pointer;
+            transition: color 0.2s;
+            }
+            .modal-close:hover { color: #00b894; }
 
     </style>
 </head>
@@ -905,35 +1000,35 @@
             </div>
             <div class="timeline">
                 <div class="timeline-item">
-                    <div class="timeline-date">Jan 2024</div>
+                    <div class="timeline-date">Jan 2025</div>
                     <div class="timeline-content card">
                         <h3>Project Inception</h3>
                         <p>Founded with a vision to democratize heritage tourism through technology</p>
                     </div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-date">Mar 2024</div>
+                    <div class="timeline-date">Mar 2025</div>
                     <div class="timeline-content card">
                         <h3>Research Phase</h3>
                         <p>Conducted extensive field research across 50+ heritage sites in India</p>
                     </div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-date">Jun 2024</div>
+                    <div class="timeline-date">Jun 2025</div>
                     <div class="timeline-content card">
                         <h3>Prototype Development</h3>
                         <p>Built first working prototype with AR reconstruction capabilities</p>
                     </div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-date">Sep 2024</div>
+                    <div class="timeline-date">Sep 2025</div>
                     <div class="timeline-content card">
                         <h3>Pilot Launch</h3>
                         <p>Successfully launched pilot program at select heritage sites</p>
                     </div>
                 </div>
                 <div class="timeline-item">
-                    <div class="timeline-date">Nov 2024</div>
+                    <div class="timeline-date">Nov 2025</div>
                     <div class="timeline-content card">
                         <h3>Scaling Up</h3>
                         <p>Expanding to 20 heritage sites with 85% user satisfaction rate</p>
@@ -1464,6 +1559,17 @@
         </div>
     </section>
 
+    <!-- successModal -->
+    <div id="successModal" class="modal-overlay" style="display:none;">
+    <div class="modal-card">
+        <span class="modal-close" onclick="closeModal()">&times;</span>
+        <div class="modal-icon">✅</div>
+        <div class="modal-title">Thank you!</div>
+        <div class="modal-message">Thank you for your message! We'll get back to you within 24 hours.</div>
+        <button class="modal-btn" onclick="closeModal()">OK</button>
+    </div>
+    </div>
+
     <!-- Footer -->
     <footer>
         <div class="footer-content">
@@ -1502,19 +1608,33 @@
             <div class="footer-section">
                 <h3>Contact Info</h3>
                 <ul>
-                    <li style="opacity: 0.8;">Dharmapuri, Telangana</li>
+                    <li style="opacity: 0.8;">Peddapalli, Telangana</li>
                     <li style="opacity: 0.8;">India</li>
                     <li><a href="mailto:info@miraiarxr.com">info@miraiarxr.com</a></li>
                     <li><a href="tel:+919876543210">+91 9876543210</a></li>
                 </ul>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 MIRAI ARXR. All rights reserved. | Built with passion for India's heritage</p>
-        </div>
+            <div class="footer-bottom">
+                <p>
+                    &copy; 2025 MIRAI ARXR. All rights reserved. Built with passion for India's heritage.
+                </p>
+                <p style="font-size: 0.97em; opacity: 0.82; margin-top: 6px; display:flex; align-items:center; gap: 7px; justify-content: center;">
+                    <span class="footer-heart" title="Made with love">❤️</span>
+                    Design by
+                    <a href="https://saivortex.vercel.app/" 
+                    target="_blank" 
+                    rel="noopener" 
+                    style="color: #00b894; text-decoration: none; font-weight: 600; transition: color 0.2s;">
+                        @saivortex
+                    </a>
+                </p>
+            </div>
     </footer>
 
-    <script>
+    
+
+    <script>            
         // Mobile menu toggle
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
@@ -1571,25 +1691,32 @@
         });
 
         // Form submission
+        // Modal functions at the top or bottom (outside any block)
+        function openModal() {
+        document.getElementById('successModal').style.display = 'flex';
+        }
+        function closeModal() {
+        document.getElementById('successModal').style.display = 'none';
+        }
+
+        // Form submission logic
         const contactForm = document.getElementById('contactForm');
         contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                organization: document.getElementById('organization').value,
-                message: document.getElementById('message').value
-            };
+        e.preventDefault();
 
-            // Store in memory (since we can't use localStorage)
-            window.submittedForms = window.submittedForms || [];
-            window.submittedForms.push(formData);
+        const formData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            organization: document.getElementById('organization').value,
+            message: document.getElementById('message').value
+        };
 
-            // Show success message
-            alert('Thank you for your message! We\'ll get back to you within 24 hours.');
-            contactForm.reset();
+        window.submittedForms = window.submittedForms || [];
+        window.submittedForms.push(formData);
+
+        openModal();
+        contactForm.reset();
         });
 
         // video script
