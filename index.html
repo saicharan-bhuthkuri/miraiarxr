@@ -1,0 +1,1607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MIRAI ARXR - AR Smart Glasses for Heritage Tourism</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #2d3436;
+            background-color: #f9f9f9;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            background: #fff;
+            padding: 20px 0;
+            z-index: 1000;
+            transition: box-shadow 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #00b894;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #2d3436;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00b894;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #00b894;
+        }
+
+        .demo-btn {
+            background: linear-gradient(135deg, #00b894 0%, #00d2a0 100%);
+            color: #fff !important;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .demo-btn::after {
+            display: none;
+        }
+
+        .demo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 184, 148, 0.3);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #00b894;
+            transition: 0.3s ease;
+        }
+
+        /* Section Styles */
+        section {
+            min-height: 100vh;
+            padding: 80px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            /* display: grid;
+            grid-template-columns: 1fr 1fr; */
+            gap: 60px;
+            align-items: center;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 230, 118, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 50%, rgba(0, 184, 148, 0.08) 0%, transparent 50%);
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            color: #2d3436;
+        }
+
+        .hero-content h1 span {
+            color: #00b894;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            color: #636e72;
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00b894 0%, #00d2a0 100%);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(0, 184, 148, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0, 184, 148, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #00b894;
+            border: 2px solid #00b894;
+        }
+
+        .btn-secondary:hover {
+            background: #00b894;
+            color: #fff;
+            transform: translateY(-3px);
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #00b894;
+            font-weight: 600;
+        }
+
+        .ar-preview {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            border-radius: 20px;
+            padding: 60px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .floating-icon {
+            font-size: 120px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Problem Section */
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 42px;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: #636e72;
+        }
+
+        .problem-grid,
+        .solution-grid,
+        .features-grid,
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #2d3436;
+        }
+
+        .card p {
+            color: #636e72;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .stat-card {
+            text-align: center;
+        }
+
+        .stat-card .metric {
+            font-size: 48px;
+            font-weight: 700;
+            color: #00b894;
+            margin-bottom: 16px;
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        /* Impact Section */
+        .impact-section {
+            background: linear-gradient(135deg, #00b894 0%, #00d2a0 100%);
+            border-radius: 20px;
+            padding: 80px 40px;
+            color: #fff;
+            margin: 60px 0;
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .impact-item h3 {
+            font-size: 52px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .impact-item p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: #2d3436;
+            color: #fff;
+            text-align: center;
+            padding: 80px 40px;
+            border-radius: 20px;
+        }
+
+        .cta-section h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 32px;
+            opacity: 0.9;
+        }
+
+        /* About Page Styles */
+        .mission-vision {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .timeline-date {
+            background: linear-gradient(135deg, #00b894 0%, #00d2a0 100%);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            white-space: nowrap;
+            height: fit-content;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        /* Features Page */
+        .feature-detail-card {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 20px;
+            text-align: left;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #00b894 0%, #00d2a0 100%);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* How It Works */
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .step-card {
+            position: relative;
+        }
+
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 30px;
+            background: linear-gradient(135deg, #00b894 0%, #00d2a0 100%);
+            color: #fff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .architecture-layer {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            padding: 30px;
+            border-left: 4px solid #00b894;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        /* Team Page */
+        .team-member-card {
+            text-align: center;
+        }
+
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00b894 0%, #00d2a0 100%);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+
+        .expertise-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .tag {
+            background: rgba(0, 184, 148, 0.1);
+            color: #00b894;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Contact Page */
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .contact-form {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3436;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00b894;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: start;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .contact-icon {
+            font-size: 32px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #00b894 0%, #00d2a0 100%);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            flex-shrink: 0;
+        }
+
+        .faq-item {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .faq-item h4 {
+            color: #00b894;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        /* Footer */
+        footer {
+            background: #2d3436;
+            color: #fff;
+            padding: 60px 20px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            color: #00b894;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section a {
+            color: #fff;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 184, 148, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #00b894;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            opacity: 0.7;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: #fff;
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+                padding: 40px 0;
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .mission-vision,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2 {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .hero-content h1 {
+                font-size: 28px;
+            }
+
+            .impact-item h3 {
+                font-size: 36px;
+            }
+
+            .cta-section h2 {
+                font-size: 28px;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+        }
+/* video in hero */
+            .video-swiper {
+            display: flex;
+            justify-content: center; /* centers horizontally */
+            align-items: center; /* centers vertically if container height permits */
+            width: 100%;
+        }
+
+        .video-swiper video {
+            width: 100%;
+            max-width: 1000px;
+            border-radius: 10px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            display: block; /* eliminates inline spacing */
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="logo">MIRAI ARXR</a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+                <li><a href="#team" class="nav-link">Team</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="#contact" class="demo-btn">Request Demo</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Rebuild India's <span>Heritage</span> Through AR Innovation</h1>
+                <p>Experience monuments in real-time augmented reality. Bring history to life with AI-powered multilingual storytelling and 3D reconstructions - all offline and affordable.</p>
+                <div class="cta-buttons">
+                    <a href="#how-it-works" class="btn btn-primary">Watch Demo</a>
+                    <a href="#contact" class="btn btn-secondary">Request Early Access</a>
+                </div>
+                <!-- <div class="trust-badge">
+                    <span>✓</span>
+                    <span>85% Pilot Users Recommend MIRAI ARXR</span>
+                </div> -->
+            </div>
+            <div class="video-swiper">
+            <video src="/assects/vr_black.mp4" controls autoplay muted></video>
+            <video src="/assects/vr_normal.mp4" controls muted style="display:none;"></video>
+            <video src="/assects/vr_white.mp4" controls muted style="display:none;"></video>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section style="background: #f9f9f9;">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Challenge We're Solving</h2>
+                <p>India's heritage tourism faces critical accessibility barriers</p>
+            </div>
+            <div class="problem-grid">
+                <div class="card stat-card">
+                    <div class="metric">22%</div>
+                    <p>Only 22% of visitors use a guide</p>
+                </div>
+                <div class="card stat-card">
+                    <div class="metric">68%</div>
+                    <p>Blocked by cost &amp; language barriers</p>
+                </div>
+                <div class="card stat-card">
+                    <div class="metric">75%</div>
+                    <p>Prefer digital interactive guidance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section style="background: #fff;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Smart Solution</h2>
+                <p>Cutting-edge AR technology meets affordable accessibility</p>
+            </div>
+            <div class="solution-grid">
+                <div class="card">
+                    <span class="feature-icon">🏛️</span>
+                    <h3>3D AR Reconstruction</h3>
+                    <p>See damaged monuments restored in real-time through augmented reality overlays</p>
+                </div>
+                <div class="card">
+                    <span class="feature-icon">🌐</span>
+                    <h3>AI-Powered Translation</h3>
+                    <p>Multilingual storytelling and instant translation in 10+ Indian languages</p>
+                </div>
+                <div class="card">
+                    <span class="feature-icon">📡</span>
+                    <h3>Offline-First Design</h3>
+                    <p>Works without internet - perfect for rural India and remote heritage sites</p>
+                </div>
+                <div class="card">
+                    <span class="feature-icon">☀️</span>
+                    <h3>Solar Powered</h3>
+                    <p>Sustainable solar panels extend battery life for all-day exploration</p>
+                </div>
+                <div class="card">
+                    <span class="feature-icon">💰</span>
+                    <h3>Affordable Hardware</h3>
+                    <p>Smart glasses priced below ₹4,000 making heritage accessible to all</p>
+                </div>
+                <div class="card">
+                    <span class="feature-icon">🎯</span>
+                    <h3>Edge Processing</h3>
+                    <p>On-device AI ensures privacy, speed, and works in any connectivity</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Metrics -->
+    <section style="background: #f9f9f9;">
+        <div class="container">
+            <div class="impact-section">
+                <div class="section-header" style="color: #fff;">
+                    <h2>Real Impact, Real Results</h2>
+                    <p>Proven metrics from our pilot programs</p>
+                </div>
+                <div class="impact-grid">
+                    <div class="impact-item">
+                        <h3>70%</h3>
+                        <p>Cost Reduction vs. Human Guides</p>
+                    </div>
+                    <div class="impact-item">
+                        <h3>85%</h3>
+                        <p>User Recommendation Rate</p>
+                    </div>
+                    <div class="impact-item">
+                        <h3>100%</h3>
+                        <p>Works Offline</p>
+                    </div>
+                    <div class="impact-item">
+                        <h3>∞</h3>
+                        <p>Heritage Sites Scalable To</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section style="background: #fff; padding: 60px 20px;">
+        <div class="container">
+            <div class="cta-section">
+                <h2>Ready to Transform Heritage Tourism?</h2>
+                <p>Join our pilot program and be part of India's heritage revolution</p>
+                <a href="#contact" class="btn btn-primary" style="background: #fff; color: #00b894;">Get Started Today</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Page -->
+    <section id="about" style="background: #f9f9f9;">
+        <div class="container">
+            <div class="section-header">
+                <h2>About MIRAI ARXR</h2>
+                <p>Pioneering the future of heritage tourism in India</p>
+            </div>
+            
+            <div class="mission-vision">
+                <div class="card">
+                    <h3>🎯 Our Mission</h3>
+                    <p>Revive and preserve India's rich cultural heritage through innovative AR and AI technologies. We're making heritage accessible, engaging, and affordable for every Indian and global visitor.</p>
+                </div>
+                <div class="card">
+                    <h3>🌟 Our Vision</h3>
+                    <p>Build an inclusive heritage tourism ecosystem accessible to everyone, breaking down barriers of language, cost, and connectivity while preserving the authenticity of India's cultural treasures.</p>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 80px;">
+                <h2>Our Journey</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">Jan 2024</div>
+                    <div class="timeline-content card">
+                        <h3>Project Inception</h3>
+                        <p>Founded with a vision to democratize heritage tourism through technology</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Mar 2024</div>
+                    <div class="timeline-content card">
+                        <h3>Research Phase</h3>
+                        <p>Conducted extensive field research across 50+ heritage sites in India</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Jun 2024</div>
+                    <div class="timeline-content card">
+                        <h3>Prototype Development</h3>
+                        <p>Built first working prototype with AR reconstruction capabilities</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Sep 2024</div>
+                    <div class="timeline-content card">
+                        <h3>Pilot Launch</h3>
+                        <p>Successfully launched pilot program at select heritage sites</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">Nov 2024</div>
+                    <div class="timeline-content card">
+                        <h3>Scaling Up</h3>
+                        <p>Expanding to 20 heritage sites with 85% user satisfaction rate</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 80px;">
+                <h2>Core Values</h2>
+            </div>
+            <div class="values-grid">
+                <div class="card">
+                    <span class="feature-icon">🌍</span>
+                    <h3>Accessibility First</h3>
+                    <p>Making heritage tourism accessible to all Indians regardless of language or economic background</p>
+                </div>
+                <div class="card">
+                    <span class="feature-icon">🛡️</span>
+                    <h3>Cultural Preservation</h3>
+                    <p>Respecting and preserving the authenticity of India's cultural heritage</p>
+                </div>
+                <div class="card">
+                    <span class="feature-icon">🔬</span>
+                    <h3>Innovation</h3>
+                    <p>Leveraging cutting-edge technology to solve real-world challenges</p>
+                </div>
+                <div class="card">
+                    <span class="feature-icon">🌱</span>
+                    <h3>Sustainability</h3>
+                    <p>Building environmentally conscious solutions for long-term impact</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Page -->
+    <section id="features" style="background: #fff;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Comprehensive Features</h2>
+                <p>Everything you need for an immersive heritage experience</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="card feature-detail-card">
+                    <span class="feature-icon">🏛️</span>
+                    <div>
+                        <h3>3D AR Monument Reconstruction</h3>
+                        <p>View damaged or partially destroyed monuments in their original glory through real-time 3D AR overlays. Our AI algorithms reconstruct historical architecture based on archaeological research.</p>
+                    </div>
+                </div>
+                <div class="card feature-detail-card">
+                    <span class="feature-icon">🗣️</span>
+                    <div>
+                        <h3>Multilingual AI Storytelling</h3>
+                        <p>Experience heritage in your language with support for 10+ Indian languages. AI-powered narration brings history to life with engaging cultural narratives and historical context.</p>
+                    </div>
+                </div>
+                <div class="card feature-detail-card">
+                    <span class="feature-icon">🔌</span>
+                    <div>
+                        <h3>Complete Offline Functionality</h3>
+                        <p>All content pre-loaded on device. No internet required for AR experiences, translations, or navigation - perfect for remote heritage sites across rural India.</p>
+                    </div>
+                </div>
+                <div class="card feature-detail-card">
+                    <span class="feature-icon">⚡</span>
+                    <div>
+                        <h3>All-Day Battery Life</h3>
+                        <p>Solar-powered technology extends battery life up to 8 hours of continuous use. Sustainable design ensures uninterrupted exploration throughout your visit.</p>
+                    </div>
+                </div>
+                <div class="card feature-detail-card">
+                    <span class="feature-icon">👆</span>
+                    <div>
+                        <h3>Gesture &amp; Voice Control</h3>
+                        <p>Intuitive hand gesture recognition and voice commands in multiple languages. Natural interaction makes the experience accessible to all age groups and tech literacy levels.</p>
+                    </div>
+                </div>
+                <div class="card feature-detail-card">
+                    <span class="feature-icon">🗺️</span>
+                    <div>
+                        <h3>AR Navigation System</h3>
+                        <p>Virtual footsteps and arrows guide you through heritage sites. Never miss important locations with intelligent route planning and point-of-interest highlights.</p>
+                    </div>
+                </div>
+                <div class="card feature-detail-card">
+                    <span class="feature-icon">📸</span>
+                    <div>
+                        <h3>AR Photo Capture</h3>
+                        <p>Capture and save your AR experiences. Share reconstructed monuments and historical overlays with friends and family as memorable souvenirs.</p>
+                    </div>
+                </div>
+                <div class="card feature-detail-card">
+                    <span class="feature-icon">🔐</span>
+                    <div>
+                        <h3>Privacy-First Edge AI</h3>
+                        <p>All processing happens on-device. Your data never leaves the glasses, ensuring complete privacy while maintaining lightning-fast response times.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 80px;">
+                <h2>MIRAI ARXR vs Traditional Tours</h2>
+            </div>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>MIRAI ARXR</th>
+                        <th>Traditional Tours</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Language Support</strong></td>
+                        <td>10+ Indian languages</td>
+                        <td>Limited to guide's languages</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cost</strong></td>
+                        <td>Below ₹4,000 one-time</td>
+                        <td>₹500-2,000 per tour</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Availability</strong></td>
+                        <td>24/7 on-demand</td>
+                        <td>Limited hours, booking required</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Visualization</strong></td>
+                        <td>3D AR reconstruction</td>
+                        <td>Verbal description only</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Connectivity</strong></td>
+                        <td>100% offline capable</td>
+                        <td>N/A</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Personalization</strong></td>
+                        <td>Self-paced, custom routes</td>
+                        <td>Fixed group schedule</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Accessibility</strong></td>
+                        <td>All ages, tech levels</td>
+                        <td>Varies by guide quality</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="section-header" style="margin-top: 80px;">
+                <h2>Real-World Use Cases</h2>
+            </div>
+            <div class="solution-grid">
+                <div class="card">
+                    <h3>🏰 Historical Forts</h3>
+                    <p>Explore ancient forts with AR reconstruction of damaged walls, gates, and royal chambers. See how they looked centuries ago.</p>
+                </div>
+                <div class="card">
+                    <h3>🕌 Religious Sites</h3>
+                    <p>Learn about architectural significance, religious symbolism, and cultural practices with respectful multilingual narration.</p>
+                </div>
+                <div class="card">
+                    <h3>🎭 Museums</h3>
+                    <p>Interactive AR exhibits bring artifacts to life. View 3D models, historical context, and animated stories behind exhibits.</p>
+                </div>
+                <div class="card">
+                    <h3>🏛️ Archaeological Sites</h3>
+                    <p>Visualize complete structures from ruins. Understand excavation findings through layered AR visualization of different time periods.</p>
+                </div>
+                <div class="card">
+                    <h3>🌳 Heritage Walks</h3>
+                    <p>Self-guided walking tours with AR navigation. Discover hidden stories and historical landmarks in heritage cities.</p>
+                </div>
+                <div class="card">
+                    <h3>🎓 Educational Tours</h3>
+                    <p>Perfect for school trips with age-appropriate content, interactive quizzes, and engaging storytelling that makes history memorable.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Page -->
+    <section id="how-it-works" style="background: #f9f9f9;">
+        <div class="container">
+            <div class="section-header">
+                <h2>How MIRAI ARXR Works</h2>
+                <p>Your journey from arrival to immersive experience</p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="card step-card">
+                    <div class="step-number">1</div>
+                    <h3>Arrive at Heritage Site</h3>
+                    <p>Visit any participating heritage site and receive MIRAI ARXR smart glasses at the entrance counter or kiosk.</p>
+                </div>
+                <div class="card step-card">
+                    <div class="step-number">2</div>
+                    <h3>Choose Language</h3>
+                    <p>Select your preferred language from 10+ Indian regional languages for personalized narration and interface.</p>
+                </div>
+                <div class="card step-card">
+                    <div class="step-number">3</div>
+                    <h3>Receive AR Navigation</h3>
+                    <p>Follow virtual footsteps and arrows that guide you through the site with an optimized route based on your interests.</p>
+                </div>
+                <div class="card step-card">
+                    <div class="step-number">4</div>
+                    <h3>View 3D Reconstructions</h3>
+                    <p>Point your glasses at monuments and see real-time AR overlays reconstructing damaged or missing architectural elements.</p>
+                </div>
+                <div class="card step-card">
+                    <div class="step-number">5</div>
+                    <h3>Experience AI Storytelling</h3>
+                    <p>Listen to engaging historical narratives, cultural context, and fascinating stories about each location you visit.</p>
+                </div>
+                <div class="card step-card">
+                    <div class="step-number">6</div>
+                    <h3>Interact with Content</h3>
+                    <p>Use intuitive hand gestures or voice commands to pause, replay, skip, or explore additional information at your own pace.</p>
+                </div>
+                <div class="card step-card">
+                    <div class="step-number">7</div>
+                    <h3>Share Experience</h3>
+                    <p>Capture AR moments and reconstructed views to share with friends and family as unique souvenirs of your visit.</p>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 80px;">
+                <h2>Technical Architecture</h2>
+            </div>
+            <div class="architecture-layer">
+                <h3>Layer 1: Hardware</h3>
+                <p><strong>Smart Glasses Platform:</strong> Affordable AR glasses (&lt;₹4,000) with embedded camera, display, speakers, and solar panels. Lightweight design (under 80g) for all-day comfort.</p>
+            </div>
+            <div class="architecture-layer">
+                <h3>Layer 2: Edge AI Processing</h3>
+                <p><strong>On-Device Intelligence:</strong> Qualcomm Snapdragon XR chip runs computer vision, AR rendering, and AI translation locally. No cloud dependency ensures privacy and offline capability.</p>
+            </div>
+            <div class="architecture-layer">
+                <h3>Layer 3: Content Management</h3>
+                <p><strong>Pre-loaded Heritage Database:</strong> High-resolution 3D models, historical data, and multilingual audio content stored locally. Regular updates via WiFi sync at site offices.</p>
+            </div>
+            <div class="architecture-layer">
+                <h3>Layer 4: AR Experience</h3>
+                <p><strong>Real-time Rendering:</strong> SLAM technology for spatial tracking, object recognition for monument identification, and dynamic AR overlay compositing at 60fps for smooth experience.</p>
+            </div>
+
+            <div class="section-header" style="margin-top: 80px;">
+                <h2>Implementation Phases</h2>
+            </div>
+            <div class="mission-vision">
+                <div class="card">
+                    <h3>Phase 1: Pilot Sites (Current)</h3>
+                    <p>Deployed at 5 heritage sites in Telangana. Gathering user feedback and optimizing hardware/software based on real-world usage patterns.</p>
+                </div>
+                <div class="card">
+                    <h3>Phase 2: Regional Expansion</h3>
+                    <p>Scale to 50 sites across South India. Partner with state tourism boards and ASI for official integration at major monuments.</p>
+                </div>
+                <div class="card">
+                    <h3>Phase 3: National Rollout</h3>
+                    <p>Expand to 200+ heritage sites nationwide. Introduce manufacturing partnerships to reduce costs further and increase accessibility.</p>
+                </div>
+                <div class="card">
+                    <h3>Phase 4: Global Heritage</h3>
+                    <p>International expansion to UNESCO World Heritage Sites. Platform localization for global languages and cultural contexts.</p>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 80px;">
+                <h2>Performance Metrics</h2>
+            </div>
+            <div class="impact-section">
+                <div class="impact-grid">
+                    <div class="impact-item">
+                        <h3>60fps</h3>
+                        <p>AR Rendering Speed</p>
+                    </div>
+                    <div class="impact-item">
+                        <h3>8hrs</h3>
+                        <p>Battery Life (Solar)</p>
+                    </div>
+                    <div class="impact-item">
+                        <h3>&lt;100ms</h3>
+                        <p>AI Response Time</p>
+                    </div>
+                    <div class="impact-item">
+                        <h3>10+</h3>
+                        <p>Language Support</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Page -->
+    <section id="team" style="background: #fff;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Meet Our Team</h2>
+                <p>Passionate innovators preserving India's heritage</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="card team-member-card">
+                    <div class="member-avatar">FL</div>
+                    <h3>Project Lead</h3>
+                    <p style="color: #00b894; font-weight: 600;">Founder &amp; Project Lead</p>
+                    <p style="margin-top: 12px;">Visionary leader with passion for heritage preservation and emerging technology</p>
+                    <div class="expertise-tags">
+                        <span class="tag">Heritage Technology</span>
+                        <span class="tag">AR/VR Strategy</span>
+                    </div>
+                </div>
+                <div class="card team-member-card">
+                    <div class="member-avatar">AD</div>
+                    <h3>AR Developer</h3>
+                    <p style="color: #00b894; font-weight: 600;">Lead AR Developer</p>
+                    <p style="margin-top: 12px;">Expert in augmented reality development and 3D graphics rendering</p>
+                    <div class="expertise-tags">
+                        <span class="tag">AR Development</span>
+                        <span class="tag">3D Graphics</span>
+                    </div>
+                </div>
+                <div class="card team-member-card">
+                    <div class="member-avatar">AI</div>
+                    <h3>AI Specialist</h3>
+                    <p style="color: #00b894; font-weight: 600;">AI Specialist</p>
+                    <p style="margin-top: 12px;">Specialist in edge AI and machine learning for low-power devices</p>
+                    <div class="expertise-tags">
+                        <span class="tag">Edge AI</span>
+                        <span class="tag">Machine Learning</span>
+                    </div>
+                </div>
+                <div class="card team-member-card">
+                    <div class="member-avatar">DL</div>
+                    <h3>Design Lead</h3>
+                    <p style="color: #00b894; font-weight: 600;">UX/UI Designer</p>
+                    <p style="margin-top: 12px;">Creating accessible and intuitive experiences for all users</p>
+                    <div class="expertise-tags">
+                        <span class="tag">UX Design</span>
+                        <span class="tag">Accessibility</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 80px;">
+                <h2>Extended Team</h2>
+            </div>
+            <div class="values-grid">
+                <div class="card">
+                    <span class="feature-icon">💻</span>
+                    <h3>Development Team</h3>
+                    <p>5 full-stack developers, hardware engineers, and QA specialists ensuring robust product delivery</p>
+                </div>
+                <div class="card">
+                    <span class="feature-icon">📚</span>
+                    <h3>Content Team</h3>
+                    <p>Historians, archaeologists, and cultural experts curating authentic heritage narratives</p>
+                </div>
+                <div class="card">
+                    <span class="feature-icon">🌏</span>
+                    <h3>Localization Team</h3>
+                    <p>Native speakers and translators for accurate multilingual content across 10+ languages</p>
+                </div>
+                <div class="card">
+                    <span class="feature-icon">🤝</span>
+                    <h3>Partnership Team</h3>
+                    <p>Building relationships with ASI, state tourism boards, and heritage site management</p>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 80px;">
+                <h2>Advisory Board</h2>
+            </div>
+            <div class="mission-vision">
+                <div class="card">
+                    <h3>Heritage Preservation Advisors</h3>
+                    <p>Experts from Archaeological Survey of India (ASI) and INTACH guiding our cultural preservation approach and ensuring historical accuracy.</p>
+                </div>
+                <div class="card">
+                    <h3>Technology Advisors</h3>
+                    <p>Industry veterans from AR/VR sector, AI research institutions, and sustainable hardware design providing technical guidance.</p>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 80px;">
+                <h2>Team Values</h2>
+            </div>
+            <div class="solution-grid">
+                <div class="card">
+                    <h3>🎯 Impact-Driven</h3>
+                    <p>Every decision focused on maximizing accessibility and cultural preservation impact</p>
+                </div>
+                <div class="card">
+                    <h3>🚀 Innovation First</h3>
+                    <p>Continuously pushing boundaries of what's possible with AR and edge AI technology</p>
+                </div>
+                <div class="card">
+                    <h3>🤝 Collaborative</h3>
+                    <p>Working closely with heritage experts, local communities, and tourism stakeholders</p>
+                </div>
+                <div class="card">
+                    <h3>🌱 Sustainable</h3>
+                    <p>Building environmentally responsible solutions for long-term heritage preservation</p>
+                </div>
+                <div class="card">
+                    <h3>💡 User-Centric</h3>
+                    <p>Obsessed with creating intuitive, delightful experiences for visitors of all backgrounds</p>
+                </div>
+                <div class="card">
+                    <h3>📊 Data-Informed</h3>
+                    <p>Making decisions based on research, user feedback, and measurable outcomes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Page -->
+    <section id="contact" style="background: #f9f9f9;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Ready to bring MIRAI ARXR to your heritage site?</p>
+            </div>
+
+            <div class="contact-container">
+                <div class="contact-form">
+                    <h3 style="margin-bottom: 24px;">Send Us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="organization">Organization/Site Name</label>
+                            <input type="text" id="organization" name="organization">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+
+                <div>
+                    <div class="card" style="margin-bottom: 30px;">
+                        <h3 style="margin-bottom: 24px;">Direct Contact</h3>
+                        <div class="contact-info-item">
+                            <div class="contact-icon">📧</div>
+                            <div>
+                                <h4 style="margin-bottom: 4px;">Email</h4>
+                                <a href="mailto:info@miraiarxr.com" style="color: #00b894;">info@miraiarxr.com</a>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <div class="contact-icon">📱</div>
+                            <div>
+                                <h4 style="margin-bottom: 4px;">Phone</h4>
+                                <a href="tel:+919876543210" style="color: #00b894;">+91 9876543210</a>
+                            </div>
+                        </div>
+                        <div class="contact-info-item">
+                            <div class="contact-icon">📍</div>
+                            <div>
+                                <h4 style="margin-bottom: 4px;">Location</h4>
+                                <p style="color: #636e72;">Dharmapuri, Telangana, India</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="margin-bottom: 16px;">Office Hours</h3>
+                        <p style="color: #636e72; margin-bottom: 8px;"><strong>Monday - Friday:</strong> 9:00 AM - 6:00 PM IST</p>
+                        <p style="color: #636e72; margin-bottom: 8px;"><strong>Saturday:</strong> 10:00 AM - 4:00 PM IST</p>
+                        <p style="color: #636e72;"><strong>Sunday:</strong> Closed</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-header" style="margin-top: 80px;">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            <div class="faq-item">
+                <h4>How much do the smart glasses cost?</h4>
+                <p>Our smart glasses are priced below ₹4,000, making them one of the most affordable AR solutions for heritage tourism. Rental options are also available at participating sites for as low as ₹100 per visit.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Do I need internet connectivity to use MIRAI ARXR?</h4>
+                <p>No! MIRAI ARXR is designed to work 100% offline. All content, including 3D models, translations, and audio narration, is pre-loaded on the device. This makes it perfect for remote heritage sites with limited connectivity.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Which languages are supported?</h4>
+                <p>We currently support 10+ Indian languages including Hindi, English, Telugu, Tamil, Kannada, Malayalam, Marathi, Bengali, Gujarati, and Punjabi. We're continuously adding more regional languages based on user demand.</p>
+            </div>
+            <div class="faq-item">
+                <h4>How can heritage sites partner with MIRAI ARXR?</h4>
+                <p>We work with Archaeological Survey of India (ASI), state tourism boards, and private heritage site management. Contact us through the form above or email partnerships@miraiarxr.com to discuss collaboration opportunities.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Is the technology difficult to use?</h4>
+                <p>Not at all! MIRAI ARXR is designed for all age groups and tech literacy levels. The interface uses intuitive gestures and voice commands. Most users are comfortable within 2-3 minutes of starting their tour.</p>
+            </div>
+            <div class="faq-item">
+                <h4>What about data privacy?</h4>
+                <p>Privacy is our priority. All AI processing happens on-device (edge computing). No personal data is collected or transmitted. Your experience is completely private and secure.</p>
+            </div>
+            <div class="faq-item">
+                <h4>How long does the battery last?</h4>
+                <p>With integrated solar panels, our glasses provide up to 8 hours of continuous use in normal conditions. This is more than enough for a full day of heritage site exploration.</p>
+            </div>
+            <div class="faq-item">
+                <h4>Can I purchase glasses for personal use?</h4>
+                <p>We're currently focused on site-based rentals to ensure content quality and device maintenance. However, we're exploring consumer retail options for 2025. Join our waitlist by contacting us!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>MIRAI ARXR</h3>
+                <p style="opacity: 0.8; margin-bottom: 20px;">Rebuilding India's heritage through AR innovation. Making cultural tourism accessible, affordable, and engaging for everyone.</p>
+                <div class="social-links">
+                    <a href="#" target="_blank" title="Facebook">📘</a>
+                    <a href="#" target="_blank" title="Twitter">🐦</a>
+                    <a href="#" target="_blank" title="LinkedIn">💼</a>
+                    <a href="#" target="_blank" title="Instagram">📷</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#team">Our Team</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul>
+                    <li><a href="#">Partner Sites</a></li>
+                    <li><a href="#">Technology</a></li>
+                    <li><a href="#">Research Papers</a></li>
+                    <li><a href="#">Press Kit</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <ul>
+                    <li style="opacity: 0.8;">Dharmapuri, Telangana</li>
+                    <li style="opacity: 0.8;">India</li>
+                    <li><a href="mailto:info@miraiarxr.com">info@miraiarxr.com</a></li>
+                    <li><a href="tel:+919876543210">+91 9876543210</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 MIRAI ARXR. All rights reserved. | Built with passion for India's heritage</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    navLinks.classList.remove('active');
+                }
+            });
+        });
+
+        // Active navigation highlighting
+        const sections = document.querySelectorAll('section[id]');
+        const navLinksAll = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            // Add shadow to navbar on scroll
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Highlight active section
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinksAll.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                organization: document.getElementById('organization').value,
+                message: document.getElementById('message').value
+            };
+
+            // Store in memory (since we can't use localStorage)
+            window.submittedForms = window.submittedForms || [];
+            window.submittedForms.push(formData);
+
+            // Show success message
+            alert('Thank you for your message! We\'ll get back to you within 24 hours.');
+            contactForm.reset();
+        });
+
+        // video script
+        const videos = document.querySelectorAll('.video-swiper video');
+        let currentIndex = 0;
+        setInterval(() => {
+            videos[currentIndex].style.display = 'none';
+            currentIndex = (currentIndex + 1) % videos.length;
+            videos[currentIndex].style.display = 'block';
+            videos[currentIndex].play();
+        }, 8000); // Change video every 8 seconds
+
+    </script>
+</body>
+</html>
