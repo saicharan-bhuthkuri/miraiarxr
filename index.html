@@ -727,6 +727,18 @@
                 padding: 60px 20px;
             }
         }
+/*table scroll  */
+        .table-scroll {
+            width: 100%;
+            overflow-x: auto;
+        }
+        
+        @media (max-width: 640px) {
+            .comparison-table {
+                min-width: 480px; /* ensures table doesn’t shrink too small */
+            }
+        }
+
 /* video in hero */
             .video-swiper {
             display: flex;
@@ -1134,52 +1146,54 @@
             <div class="section-header" style="margin-top: 80px;">
                 <h2>MIRAI ARXR vs Traditional Tours</h2>
             </div>
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Feature</th>
-                        <th>MIRAI ARXR</th>
-                        <th>Traditional Tours</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Language Support</strong></td>
-                        <td>10+ Indian languages</td>
-                        <td>Limited to guide's languages</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Cost</strong></td>
-                        <td>Below ₹4,000 one-time</td>
-                        <td>₹500-2,000 per tour</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Availability</strong></td>
-                        <td>24/7 on-demand</td>
-                        <td>Limited hours, booking required</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Visualization</strong></td>
-                        <td>3D AR reconstruction</td>
-                        <td>Verbal description only</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Connectivity</strong></td>
-                        <td>100% offline capable</td>
-                        <td>N/A</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Personalization</strong></td>
-                        <td>Self-paced, custom routes</td>
-                        <td>Fixed group schedule</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Accessibility</strong></td>
-                        <td>All ages, tech levels</td>
-                        <td>Varies by guide quality</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-scroll">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>MIRAI ARXR</th>
+                            <th>Traditional Tours</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Language Support</strong></td>
+                            <td>10+ Indian languages</td>
+                            <td>Limited to guide's languages</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cost</strong></td>
+                            <td>Below ₹4,000 one-time</td>
+                            <td>₹500-2,000 per tour</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Availability</strong></td>
+                            <td>24/7 on-demand</td>
+                            <td>Limited hours, booking required</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Visualization</strong></td>
+                            <td>3D AR reconstruction</td>
+                            <td>Verbal description only</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Connectivity</strong></td>
+                            <td>100% offline capable</td>
+                            <td>N/A</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Personalization</strong></td>
+                            <td>Self-paced, custom routes</td>
+                            <td>Fixed group schedule</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Accessibility</strong></td>
+                            <td>All ages, tech levels</td>
+                            <td>Varies by guide quality</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
             <div class="section-header" style="margin-top: 80px;">
                 <h2>Real-World Use Cases</h2>
